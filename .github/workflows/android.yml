@@ -1,4 +1,4 @@
-name: Android CI
+name: Android CI Legacy
 
 on:
   push:
@@ -10,14 +10,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - name: Setup JDK 8
+        uses: actions/setup-java@v1
         with:
-          distribution: temurin
-          java-version: 17
-          cache: gradle
+          java-version: 1.8
 
       - name: Make Gradle executable
         run: chmod +x gradlew
@@ -26,7 +24,7 @@ jobs:
         run: ./gradlew assembleDebug --stacktrace
 
       - name: Upload APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v2
         with:
           name: app-apk
           path: "**/*.apk"
